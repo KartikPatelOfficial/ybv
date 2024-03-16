@@ -1,0 +1,58 @@
+### Car Services API
+POST localhost:3000/api/car-services
+Content-Type: application/json
+
+{
+  "title": "Car Wash",
+  "description": "Car Wash",
+  "price": 100,
+  "imageUrl": "https://www.google.com",
+  "category": "Services"
+}
+
+### Car Services API
+GET localhost:3000/api/car-services
+
+### Car Services API by ID
+GET localhost:3000/api/car-services/65e9c33f3d699515adfdd201
+
+### Car Services API - Update
+PUT localhost:3000/api/car-services/65e9c33f3d699515adfdd201
+Content-Type: application/json
+
+{
+  "title": "Update- Car Wash",
+  "description": "Car Wash",
+  "price": 100,
+  "imageUrl": "https://www.google.com",
+  "category": "Services"
+}
+
+### Car Services API - Delete
+DELETE localhost:3000/api/car-services/65e9c33f3d699515adfdd201
+
+### User API
+POST localhost:3000/api/users
+Content-Type: application/
+
+{
+  "id": "123",
+  "name": "John Doe",
+  "email": "",
+  "phoneNumber": "1234567890"
+}
+
+### Vehicle API
+POST localhost:3000/api/vehicles
+Content-Type: application/json
+
+{
+  "make": "Toyota",
+  "model": "Camry",
+  "year": 2015,
+  "vin": "1234567890",
+  "userId": "123"
+}
+
+### Vehicle API by User ID
+GET localhost:3000/api/vehicles/user/123
