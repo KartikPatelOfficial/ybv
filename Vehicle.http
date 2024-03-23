@@ -1,0 +1,4 @@
+### GET All Vehicls
+
+GET http://localhost:3000/api/vehicles/user/65ebc25e011b38fc9fc96398
+

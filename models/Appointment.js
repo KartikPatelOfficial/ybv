@@ -13,9 +13,8 @@ const AppointmentStatus = {
 
 // Appointment Schema
 const appointmentSchema = new mongoose.Schema({
-    id: { type: String, required: true },
     userId: { type: String, required: true },
-    carServiceId: { type: String, required: true },
+    carServiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'CarService', required: true },
     dateTime: { type: Date, required: true },
     notes: { type: String },
     damagePhotos: { type: [damagePhotoSchema], default: [] },
@@ -24,7 +23,19 @@ const appointmentSchema = new mongoose.Schema({
         enum: Object.values(AppointmentStatus), // Allow values based on the enum
         default: AppointmentStatus.PENDING
     }
-});
+},
+    {
+        timestamps: true,
+        toJSON: {
+            transform: function (doc, ret) {
+                ret.id = ret._id;
+                delete ret._id;
+                delete ret.__v;
+                return ret;
+            }
+        }
+    }
+);
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 

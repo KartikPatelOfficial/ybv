@@ -56,3 +56,19 @@ Content-Type: application/json
 
 ### Vehicle API by User ID
 GET localhost:3000/api/vehicles/user/123
+
+### Book appointment API
+
+POST localhost:3000/api/appointments
+Content-Type: application/json
+
+{
+  "id": "123",
+  "userId": "jIBu54A4xZZqGzWiGOnqLAWF5ar2",
+  "carServiceId": "65f8c68dc823405fa7448016",
+  "dateTime": "2021-07-01T10:00:00",
+  "notes": "Car Wash"
+}
+
+### Get appointment by user ID
+GET localhost:3000/api/appointments/user/jIBu54A4xZZqGzWiGOnqLAWF5ar2

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Appointment = require('../models/appointment');
+const { Appointment } = require('../models/Appointment');
 
 // GET all appointments
 router.get('/', async (req, res) => {
@@ -29,7 +29,10 @@ router.get('/:id', async (req, res) => {
 // Get appointments by user ID
 router.get('/user/:userId', async (req, res) => {
     try {
-        const appointments = await Appointment.find({ userId: req.params.userId });
+        const appointments = await Appointment.find({ userId: req.params.userId })
+        .populate('carServiceId')
+        .populate('userId', 'name email phone')
+        .exec();
         res.json(appointments);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -43,6 +46,7 @@ router.post('/', async (req, res) => {
         const savedAppointment = await newAppointment.save();
         res.status(201).json(savedAppointment);
     } catch (err) {
+        console.log(err);
         res.status(400).json({ message: err.message });
     }
 });
