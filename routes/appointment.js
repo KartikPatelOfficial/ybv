@@ -2,12 +2,23 @@ const express = require('express');
 const router = express.Router();
 
 const { Appointment } = require('../models/Appointment');
+const  {User}  = require('../models/User.js');
 
 // GET all appointments
 router.get('/', async (req, res) => {
     try {
-        const appointments = await Appointment.find();
+        const appointments = await Appointment.find()
+        .populate('carServiceId')
+        .exec();
+
+        await Promise.all(appointments.map(async appointment => {
+            let user = await User.find({ id: appointment.userId })
+            appointment.user = user;
+            return appointment;
+        }));
+
         res.json(appointments);
+
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -63,6 +74,7 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
+
 
 // DELETE appointment by ID
 router.delete('/:id', async (req, res) => {
