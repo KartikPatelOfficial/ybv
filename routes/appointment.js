@@ -27,11 +27,20 @@ router.get('/', async (req, res) => {
 // GET single appointment by ID
 router.get('/:id', async (req, res) => {
     try {
-        const appointment = await Appointment.findById(req.params.id);
+        const appointment = await Appointment.findById(req.params.id)
+        .populate('carServiceId')
+        .exec();
+
+        console.log(appointment.userId);
+
+        let user = await User.findOne({ id: appointment.userId });
+        
+
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found' });
         }
-        res.json(appointment);
+
+        res.json({...appointment._doc, user: user});
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
